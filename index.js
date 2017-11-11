@@ -9,6 +9,13 @@ mongoose.connect(keys.mongoURI);
 
 require('./services/passport');
 
+/*
+  each app.use is wiring up a middleware in the application,
+  - middlewares are small functions that are used to modify (filter) incoming 
+    requests before they are sent to route handlers
+
+    Request -> cookieSession (Extracts cookie data) -> passport -> deserialize user 
+*/
 app.use(
 	cookieSession({
 		maxAge: 30 * 24 * 60 * 60 * 1000,
