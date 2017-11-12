@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const keys = require('./config/keys');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
+const morgan = require('morgan');
+
 require('./models/User');
 mongoose.connect(keys.mongoURI);
 
@@ -22,9 +24,11 @@ app.use(
 		keys: [keys.cookieKey]
 	})
 );
-
 app.use(passport.initialize());
 app.use(passport.session());
+
+/* Log every request to console in development mode */
+app.use(morgan('dev'));
 
 require('./routes/authRoutes')(app);
 
